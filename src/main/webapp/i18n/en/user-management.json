@@ -1,0 +1,38 @@
+{
+  "userManagement": {
+    "home": {
+      "title": "Users",
+      "refreshListLabel": "Refresh list",
+      "createLabel": "Create a new user",
+      "createOrEditLabel": "Create or edit a user"
+    },
+    "created": "A new user is created with identifier {{ param }}",
+    "updated": "A user is updated with identifier {{ param }}",
+    "deleted": "A user is deleted with identifier {{ param }}",
+    "delete": {
+      "question": "Are you sure you want to delete user {{ login }}?"
+    },
+    "detail": {
+      "title": "User Details"
+    },
+    "username": "Username",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "activated": "Activated",
+    "deactivated": "Deactivated",
+    "profiles": "Authorities",
+    "langKey": "Language",
+    "createdBy": "Created by",
+    "createdDate": "Created date",
+    "lastModifiedBy": "Modified by",
+    "lastModifiedDate": "Modified date",
+    "update": {
+      "username": "Username <span title=\"required\" class=\"text-danger\">*</span>",
+      "firstName": "First name <span title=\"required\" class=\"text-danger\">*</span>",
+      "lastName": "Last name <span title=\"required\" class=\"text-danger\">*</span>",
+      "email": "Email <span title=\"required\" class=\"text-danger\">*</span>",
+      "profiles": "Authorities <span title=\"required\" class=\"text-danger\">*</span>"
+    }
+  }
+}

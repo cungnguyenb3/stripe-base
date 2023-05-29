@@ -1,0 +1,36 @@
+<div class="px-3" *ngIf="userInput">
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <span jhiTranslate="userManagement.detail.title"></span>
+    </h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="onClose()"></button>
+  </div>
+  <div class="modal-body">
+    <dl class="row-md jh-entity-details">
+      <dt><span jhiTranslate="userManagement.username">Username</span></dt>
+      <dd>
+        <span>{{ userInput.login }}</span>
+        <span *ngIf="userInput.activated" class="badge bg-success" jhiTranslate="userManagement.activated">Activated</span>
+        <span *ngIf="!userInput.activated" class="badge bg-danger" jhiTranslate="userManagement.deactivated">Deactivated</span>
+      </dd>
+
+      <dt><span jhiTranslate="userManagement.firstName">First name</span></dt>
+      <dd>{{ userInput.firstName }}</dd>
+
+      <dt><span jhiTranslate="userManagement.lastName">Last name</span></dt>
+      <dd>{{ userInput.lastName }}</dd>
+
+      <dt><span jhiTranslate="userManagement.email">Email</span></dt>
+      <dd>{{ userInput.email }}</dd>
+
+      <dt><span jhiTranslate="userManagement.profiles">Profiles</span></dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li *ngFor="let authority of userInput.authorities">
+            <span class="badge bg-info">{{ authority }}</span>
+          </li>
+        </ul>
+      </dd>
+    </dl>
+  </div>
+</div>

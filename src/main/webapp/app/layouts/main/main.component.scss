@@ -1,0 +1,10 @@
+.container-full-width {
+  width: 100%;
+  padding: 0;
+  height: calc(100% - 74px);
+}
+.container-content {
+  min-height: calc(100% - 129px);
+  max-width: 90rem;
+  margin: 0 auto;
+}

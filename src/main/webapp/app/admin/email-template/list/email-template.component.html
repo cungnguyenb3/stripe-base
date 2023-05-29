@@ -1,0 +1,136 @@
+<jhi-alert></jhi-alert>
+<div class="row justify-content-between">
+  <div class="col-auto">
+    <h3 jhiTranslate="emailTemplate.title.home">Manage Email Templates</h3>
+  </div>
+  <div class="col-auto">
+    <button id="jh-create-entity" class="btn btn-primary jh-create-entity" (click)="openCreateModal()">
+      <fa-icon [icon]="'plus'"></fa-icon>
+      <span jhiTranslate="emailTemplate.button.create"> Create New Email Template </span>
+    </button>
+  </div>
+</div>
+<div class="card border-0 shadow mt-3">
+  <div class="card-body">
+    <div class="col-12 row">
+      <div class="col-4">
+        <div class="form-group">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="searchModel.searchTerm"
+              id="searchTerm"
+              name="searchTerm"
+              jhiTrimText
+              placeholder="{{ 'emailTemplate.label.placeholder' | translate }}"
+              (keyup.enter)="search()"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-link" type="button" (click)="search()">
+                <fa-icon [icon]="'search'"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 text-end">
+        <button class="btn btn-primary sameWidth" type="button" (click)="search()">
+          <span jhiTranslate="emailTemplate.button.search"></span>
+        </button>
+        <button class="btn btn-dark sameWidth" (click)="clear()" type="button">
+          <span jhiTranslate="emailTemplate.button.clearFilters">Clear Filters</span>
+        </button>
+      </div>
+    </div>
+    <div id="scrollParent">
+      <div class="table-responsive pt-4" *ngIf="emailTemplates">
+        <table class="table table-striped emailTemplate" id="headerShowScroll">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+              <th scope="templateName" jhiSortBy="templateName" class="w-25">
+                <span jhiTranslate="emailTemplate.label.templateName">Name</span> <fa-icon [icon]="'sort'"></fa-icon>
+              </th>
+              <th scope="emailTemplateEvent" jhiSortBy="emailTemplateEvent" class="w-25">
+                <span jhiTranslate="emailTemplate.label.event">Event</span> <fa-icon [icon]="'sort'"></fa-icon>
+              </th>
+              <th scope="recipientType" jhiSortBy="recipientType" class="w-10">
+                <span jhiTranslate="emailTemplate.label.recipient">Recipient</span> <fa-icon [icon]="'sort'"></fa-icon>
+              </th>
+              <th scope="default" class="text-center" jhiSortBy="default" class="w-10">
+                <span jhiTranslate="emailTemplate.label.default">Default</span> <fa-icon [icon]="'sort'"></fa-icon>
+              </th>
+              <th scope="status" class="toggle" class="w-10"><span jhiTranslate="emailTemplate.label.status">Status</span></th>
+              <th scope="none" class="btn-3" class="w-15"></th>
+            </tr>
+          </thead>
+          <thead class="dummy">
+            <th scope="dummy" colspan="6"></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let emailTemplate of emailTemplates; trackBy: trackId">
+              <td>{{ emailTemplate.templateName }}</td>
+              <td>{{ 'emailTemplate.emailTemplateEvent.' + emailTemplate.emailTemplateEvent | translate }}</td>
+              <td>{{ 'emailTemplate.recipientType.' + emailTemplate.recipientType | translate }}</td>
+              <td class="text-center" jhiTranslate="{{ 'emailTemplate.default.' + emailTemplate.isDefault }}">
+                {{ emailTemplate.isDefault }}
+              </td>
+              <td>
+                <input
+                  name="activated"
+                  class="form-check-input bg-info border-info"
+                  type="checkbox"
+                  [checked]="emailTemplate.activated"
+                  (change)="onToggleChangeActivated($event, emailTemplate)"
+                />
+              </td>
+              <td class="btn-3">
+                <button
+                  type="button"
+                  (click)="openEditModal(emailTemplate)"
+                  class="btn btn-info btn-sm"
+                  title="{{ 'emailTemplate.tooltip.edit' | translate }}"
+                >
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+                <button
+                  type="submit"
+                  (click)="openDeleteModal(emailTemplate)"
+                  class="btn btn-danger btn-sm"
+                  title="{{ 'emailTemplate.tooltip.delete' | translate }}"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="emailTemplates && emailTemplates.length == 0">
+              <td colspan="10">
+                <span jhiTranslate="emailTemplate.message.info.noData">There are no email templates that match your search criteria</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center mt-3" *ngIf="emailTemplates && emailTemplates.length">
+  <div class="d-flex justify-content-center">
+    <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+  </div>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [collectionSize]="totalItems"
+      [(page)]="page"
+      size="sm"
+      [pageSize]="itemsPerPage"
+      [maxSize]="5"
+      [rotate]="true"
+      [boundaryLinks]="true"
+      (pageChange)="loadPage(page)"
+    >
+    </ngb-pagination>
+  </div>
+</div>

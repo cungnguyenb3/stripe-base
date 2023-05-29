@@ -1,0 +1,9 @@
+{
+  "formosAtsApp": {
+    "quiz": {
+      "created": "A new Quiz is created with identifier {{ param }}",
+      "updated": "A Quiz is updated with identifier {{ param }}",
+      "deleted": "A Quiz is deleted with identifier {{ param }}"
+    }
+  }
+}

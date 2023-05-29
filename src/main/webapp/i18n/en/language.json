@@ -1,0 +1,35 @@
+{
+  "formosAtsApp": {
+    "language": {
+      "home": {
+        "title": "Programing languages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new language",
+        "createOrEditLabel": "Create or edit a language",
+        "notFound": "No languages found"
+      },
+      "created": "A new language is created with identifier {{ param }}",
+      "updated": "A language is updated with identifier {{ param }}",
+      "deleted": "A language is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete language \"{{ name }}\"?"
+      },
+      "detail": {
+        "title": "Language"
+      },
+      "id": "ID",
+      "name": "Name",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "error": {
+        "existed": "Programing Language has existed!",
+        "quiz-using": "The Programing Language was using by quiz [{{param0}}]"
+      },
+      "update": {
+        "name": "Name <span title=\"required\" class=\"text-danger\">*</span>"
+      }
+    }
+  }
+}

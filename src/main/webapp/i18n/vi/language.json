@@ -1,0 +1,35 @@
+{
+  "formosAtsApp": {
+    "language": {
+      "home": {
+        "title": "Ngôn ngữ lập trình",
+        "refreshListLabel": "Làm mới",
+        "createLabel": "Thêm ngôn ngữ lập trình mới",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật ngôn ngữ lập trình",
+        "notFound": "Không tìm thấy ngôn ngữ lập trình nào"
+      },
+      "created": "Đã tạo thành công ngôn ngữ lập trình có ID là {{ param }}",
+      "updated": "Đã cập thành công nhật ngôn ngữ lập trình có ID là {{ param }}",
+      "deleted": "Đã xóa ngôn ngữ lập trình có ID là {{ param }} thành công",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa ngôn ngữ lập trình \"{{ name }}\"?"
+      },
+      "detail": {
+        "title": "Language"
+      },
+      "id": "ID",
+      "name": "Ngôn ngữ",
+      "createdBy": "Người tạo",
+      "createdDate": "Ngày tạo",
+      "lastModifiedBy": "Người chỉnh sửa",
+      "lastModifiedDate": "Ngày chỉnh sửa",
+      "error": {
+        "existed": "Ngôn ngữ lập trình đã tồn tại!",
+        "quiz-using": "Ngôn ngữ lập trình đang được sử dựng bởi câu hỏi: {{param0}}"
+      },
+      "update": {
+        "name": "Ngôn ngữ <span title=\"required\" class=\"text-danger\">*</span>"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "formosAtsApp": {
+    "position": {
+      "home": {
+        "title": "Vị trí",
+        "refreshListLabel": "Làm mới",
+        "createLabel": "Thêm vị trí",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật vị trí",
+        "notFound": "Không tim thấy vị trí nào"
+      },
+      "created": "Đã tạo thành công vị trí có ID là {{ param }}",
+      "updated": "Đã cập nhật thành công vị trí có ID là {{ param }}",
+      "deleted": "Đã xóa vị trí có ID là {{ param }} thành công",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa vị trí \"{{ name }}\"?"
+      },
+      "detail": {
+        "title": "Vị trí"
+      },
+      "id": "ID",
+      "name": "Vị trí",
+      "createdBy": "Người tạo",
+      "createdDate": "Ngày tạo",
+      "lastModifiedBy": "Người chỉnh sửa",
+      "lastModifiedDate": "Ngày chỉnh sửa",
+      "error": {
+        "existed": "Vị trí đã tồn tại!",
+        "quiz-using": "Vị trí đang được sử dựng bởi câu hỏi: {{param0}}"
+      },
+      "update": {
+        "name": "Vị trí <span title=\"required\" class=\"text-danger\">*</span>"
+      }
+    }
+  }
+}

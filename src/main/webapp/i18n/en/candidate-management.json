@@ -1,0 +1,85 @@
+{
+  "candidateManagement": {
+    "home": {
+      "title": "Candidates",
+      "refreshListLabel": "Refresh list",
+      "createLabel": "Create a new candidate",
+      "createOrEditLabel": "Create or edit a candidate"
+    },
+    "created": "A new candidate is created with identifier {{ param }}",
+    "updated": "A candidate is updated with identifier {{ param }}",
+    "deleted": "A candidate is deleted with identifier {{ param }}",
+    "delete": {
+      "question": "Are you sure you want to delete candidate {{ login }}?"
+    },
+    "detail": {
+      "title": "candidate"
+    },
+    "message": {
+      "confirm": {
+        "delete": "Warning! This action cannot be undone. Deleting this location will unlink staff training accounts and permanently delete ALL access and associated training records. Are you sure you want to continue?"
+      }
+    },
+    "label": {
+      "confirmDelete": "Type \"DELETE\" into textbox below:"
+    },
+    "button": {
+      "confirmDelete": "Confirm Delete",
+      "sendToMe": "Send To Me",
+      "send": "Send"
+    },
+    "office": "Office",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "status": "Status",
+    "quizStatus": "Quiz Status",
+    "createdBy": "Created by",
+    "createdDate": "Created date",
+    "lastModifiedBy": "Modified by",
+    "lastModifiedDate": "Modified date",
+    "position": "Position",
+    "quiz": "Quiz",
+    "phone": "Phone",
+    "title": "Title",
+    "createModal": "Create / Edit candidate",
+    "sendEmailToCandidate": "Send Email To Candidate",
+    "save": "Save",
+    "display": {
+      "office": {
+        "DN": "Đà Nẵng",
+        "HCM": "Hồ Chí Minh"
+      },
+      "candidateStatus": {
+        "DRAFT": "Draft",
+        "INVITED": "Invited",
+        "IN_PROGRESS": "In progress",
+        "CANCELED": "Canceled",
+        "COMPLETED": "Completed"
+      },
+      "title": {
+        "MR": "Mr.",
+        "MS": "Ms.",
+        "MRS": "Mrs."
+      },
+      "candidateQuizStatus": {
+        "INVITED": "Invited",
+        "STARTED": "Started",
+        "FINISHED": "Finished"
+      }
+    },
+    "update": {
+      "office": "Office <span title=\"required\" class=\"text-danger\">*</span>",
+      "title": "Title <span title=\"required\" class=\"text-danger\">*</span>",
+      "firstName": "First name <span title=\"required\" class=\"text-danger\">*</span>",
+      "lastName": "Last name <span title=\"required\" class=\"text-danger\">*</span>",
+      "email": "Email <span title=\"required\" class=\"text-danger\">*</span>",
+      "phone": "Phone <span title=\"required\" class=\"text-danger\">*</span>",
+      "position": "Position <span title=\"required\" class=\"text-danger\">*</span>",
+      "quiz": "Quiz <span title=\"required\" class=\"text-danger\">*</span>"
+    },
+    "history-detail": {
+      "title": "Candidate Test History"
+    }
+  }
+}

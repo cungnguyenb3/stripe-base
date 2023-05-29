@@ -1,0 +1,41 @@
+{
+  "candidateManagement": {
+    "home": {
+      "title": "Candidates",
+      "refreshListLabel": "Refresh list",
+      "createLabel": "Create a new candidate",
+      "createOrEditLabel": "Create or edit a candidate"
+    },
+    "created": "A new candidate is created with identifier {{ param }}",
+    "updated": "A candidate is updated with identifier {{ param }}",
+    "deleted": "A candidate is deleted with identifier {{ param }}",
+    "delete": {
+      "question": "Are you sure you want to delete candidate {{ login }}?"
+    },
+    "detail": {
+      "title": "candidate"
+    },
+    "office": "Office",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "status": "Status",
+    "quizStatus": "Quiz Status",
+    "createdBy": "Created by",
+    "createdDate": "Created date",
+    "lastModifiedBy": "Modified by",
+    "lastModifiedDate": "Modified date",
+    "update": {
+      "update": {
+        "office": "Văn phòng <span title=\"required\" class=\"text-danger\">*</span>",
+        "title": "Tiêu đề <span title=\"required\" class=\"text-danger\">*</span>",
+        "firstName": "Tên  <span title=\"required\" class=\"text-danger\">*</span>",
+        "lastName": "Họ <span title=\"required\" class=\"text-danger\">*</span>",
+        "email": "Email <span title=\"required\" class=\"text-danger\">*</span>",
+        "phone": "Điện thoại <span title=\"required\" class=\"text-danger\">*</span>",
+        "position": "Chức vụ <span title=\"required\" class=\"text-danger\">*</span>",
+        "quiz": "Quiz <span title=\"required\" class=\"text-danger\">*</span>"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+@import 'content/scss/_bootstrap-variables.scss';
+.footer {
+  background-color: $formos-color-main;
+  padding: 0 1rem;
+
+  .footer-max-width {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .padded-section {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  a {
+    color: #fcfcff;
+    text-decoration: none;
+
+    &:hover {
+      color: rgba(252, 252, 255, 0.7);
+    }
+  }
+
+  p {
+    color: #fcfcff;
+    margin: 0;
+  }
+}

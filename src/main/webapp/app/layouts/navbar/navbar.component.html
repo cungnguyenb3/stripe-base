@@ -1,0 +1,176 @@
+<nav data-cy="navbar" class="f-navbar navbar navbar-dark navbar-expand-md">
+  <div class="header-max-width">
+    <a class="navbar-brand logo" aria-current="page" (click)="redirectToHomePage()">
+      <div class="brand-icon">
+        <img src="content/images/formos_logo_white.png" alt="Formos Logo" />
+      </div>
+    </a>
+    <button
+      type="button"
+      class="navbar-toggler d-lg-none"
+      href="javascript:void(0);"
+      data-toggle="collapse"
+      data-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleNavbar()"
+      aria-label="Menu"
+      class="navbar-toggler"
+    >
+      <svg
+        stroke="currentColor"
+        fill="none"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        height="2rem"
+        width="2rem"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
+      <ul class="navbar-nav ms-auto">
+        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+        <li
+          *jhiHasAnyAuthority="[authorityEnum.ADMIN, authorityEnum.HR]"
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="underline-ltr nav-link" routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
+            <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+            <span class="ms-1" jhiTranslate="global.menu.admin.userManagement">User management</span>
+          </a>
+        </li>
+        <li
+          *jhiHasAnyAuthority="[authorityEnum.ADMIN, authorityEnum.HR, authorityEnum.PM, authorityEnum.TECH_LEAD]"
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="underline-ltr nav-link" routerLink="/candidate-management" routerLinkActive="active" (click)="collapseNavbar()">
+            <fa-icon icon="id-card" [fixedWidth]="true"></fa-icon>
+            <span class="ms-1">Product management</span>
+          </a>
+        </li>
+        <li
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a
+            *ngIf="account"
+            class="d-flex align-items-center dropdown-toggle nav-link"
+            ngbDropdownToggle
+            href="javascript:void(0);"
+            id="account-menu"
+            data-cy="accountMenu"
+          >
+            <span *ngIf="!account?.imageUrl">
+              <fa-icon icon="user"></fa-icon>
+            </span>
+            <span *ngIf="account?.imageUrl">
+              <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
+            </span>
+            <span *ngIf="account" class="ms-1">{{ account.login }}</span>
+            <span *ngSwitchCase="false" class="ms-1" jhiTranslate="global.menu.account.main">Account</span>
+          </a>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
+            <li *jhiHasAnyAuthority="[authorityEnum.ADMIN]">
+              <a
+                class="dropdown-item"
+                routerLink="admin/email-template"
+                routerLinkActive="active"
+                (click)="collapseNavbar()"
+                data-cy="mail-template"
+              >
+                <fa-icon icon="mail-bulk" [fixedWidth]="true"></fa-icon>
+                <span class="ms-1" jhiTranslate="global.menu.utilities.mail-template">Mail template</span>
+              </a>
+            </li>
+            <li *jhiHasAnyAuthority="[authorityEnum.ADMIN]">
+              <a
+                class="dropdown-item"
+                routerLink="utilities/position"
+                routerLinkActive="active"
+                (click)="collapseNavbar()"
+                data-cy="mail-template"
+              >
+                <fa-icon icon="user-tag" [fixedWidth]="true"></fa-icon>
+                <span class="ms-1" jhiTranslate="global.menu.utilities.position">position</span>
+              </a>
+            </li>
+            <li *jhiHasAnyAuthority="[authorityEnum.ADMIN]">
+              <a
+                class="dropdown-item"
+                routerLink="utilities/language"
+                routerLinkActive="active"
+                (click)="collapseNavbar()"
+                data-cy="mail-template"
+              >
+                <fa-icon icon="code" [fixedWidth]="true"></fa-icon>
+                <span class="ms-1" jhiTranslate="global.menu.utilities.language">Language</span>
+              </a>
+            </li>
+            <li *ngSwitchCase="true">
+              <a
+                class="dropdown-item"
+                routerLink="account/settings"
+                routerLinkActive="active"
+                (click)="collapseNavbar()"
+                data-cy="settings"
+              >
+                <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.account.settings">Settings</span>
+              </a>
+            </li>
+            <li *ngSwitchCase="true">
+              <a
+                class="dropdown-item"
+                routerLink="account/password"
+                routerLinkActive="active"
+                (click)="collapseNavbar()"
+                data-cy="passwordItem"
+              >
+                <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
+                <span class="ms-1" jhiTranslate="global.menu.account.password">Password</span>
+              </a>
+            </li>
+            <li *ngSwitchCase="true">
+              <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
+                <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
+                <span class="ms-1" jhiTranslate="global.menu.account.logout">Sign out</span>
+              </a>
+            </li>
+            <li *ngSwitchCase="false">
+              <a class="dropdown-item" (click)="login()" id="login" data-cy="login">
+                <fa-icon icon="sign-in-alt" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.account.login">Sign in</span>
+              </a>
+            </li>
+            <li *ngSwitchCase="false">
+              <a
+                class="dropdown-item"
+                routerLink="account/register"
+                routerLinkActive="active"
+                (click)="collapseNavbar()"
+                data-cy="register"
+              >
+                <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
+                <span class="ms-1" jhiTranslate="global.menu.account.register">Register</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

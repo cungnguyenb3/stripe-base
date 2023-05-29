@@ -1,0 +1,35 @@
+{
+  "formosAtsApp": {
+    "position": {
+      "home": {
+        "title": "Positions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new position",
+        "createOrEditLabel": "Create or edit a position",
+        "notFound": "No positions found"
+      },
+      "created": "A new position is created with identifier {{ param }}",
+      "updated": "A position is updated with identifier {{ param }}",
+      "deleted": "A position is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete position \"{{ name }}\"?"
+      },
+      "detail": {
+        "title": "Position"
+      },
+      "id": "ID",
+      "name": "Name",
+      "createdBy": "Created By",
+      "createdDate": "Created Date",
+      "lastModifiedBy": "Last Modified By",
+      "lastModifiedDate": "Last Modified Date",
+      "error": {
+        "existed": "Job position has existed!",
+        "quiz-using": "The job position was using by quiz [{{param0}}]"
+      },
+      "update": {
+        "name": "Name <span title=\"required\" class=\"text-danger\">*</span>"
+      }
+    }
+  }
+}

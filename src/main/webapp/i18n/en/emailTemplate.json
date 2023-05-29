@@ -1,0 +1,112 @@
+{
+  "emailTemplate": {
+    "title": {
+      "home": "Email Template Management",
+      "sendTestMail": "Send Test Email",
+      "create": "Create Email Template",
+      "edit": "Edit Email Template"
+    },
+    "label": {
+      "placeholder": "Search",
+      "templateName": "Name",
+      "event": "Event",
+      "recipient": "Recipient",
+      "email": "Email",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "default": "Default",
+      "status": "Status",
+      "selectOne": "Select one",
+      "otherEmail": "Please enter email for the recipient (if other)",
+      "subject": "Subject",
+      "body": "Body",
+      "sendTestEmail": "Send Test Email",
+      "yes": "Yes",
+      "no": "No",
+      "dynamicTextTitle": "Dynamic Text replacement supported",
+      "dynamicText": "{Contact}, {Login}",
+      "dynamicLinkTitle": "Available Dynamic text links",
+      "update": {
+        "templateName": "Name <span title=\"required\" class=\"text-danger\">*</span>",
+        "event": "Event <span title=\"required\" class=\"text-danger\">*</span>",
+        "subject": "Subject <span title=\"required\" class=\"text-danger\">*</span>",
+        "body": "Body <span title=\"required\" class=\"text-danger\">*</span>",
+        "email": "Email <span title=\"required\" class=\"text-danger\">*</span>",
+        "firstName": "First Name <span title=\"required\" class=\"text-danger\">*</span>",
+        "lastName": "Last Name <span title=\"required\" class=\"text-danger\">*</span>"
+      }
+    },
+    "button": {
+      "create": "Create",
+      "search": "Search",
+      "send": "Send",
+      "clearFilters": "Clear Filters",
+      "clear": "Clear",
+      "close": "Close"
+    },
+    "default": {
+      "true": "Yes",
+      "false": "No"
+    },
+    "tooltip": {
+      "update": "Update",
+      "delete": "Delete"
+    },
+    "placeholder": {
+      "search": "Search"
+    },
+    "message": {
+      "valiate": {},
+      "info": {
+        "created": "Created Email Template '{{ param }}'",
+        "updated": "Updated Email Template '{{ param }}'",
+        "noData": "There are no email templates that match your search criteria",
+        "deactivated": "Deactivated Email Template '{{ param }}'",
+        "deactive": {
+          "title": "Are you sure you want to deactivate this email template",
+          "question": "CAUTION: You may be attempting to deactivate a default email template. This action will remove this email template from all classes it has been assigned to. Are you sure you want to deactivate email template '{{ name }}'?"
+        },
+        "deleted": "Deleted Email Template '{{ param }}'",
+        "delete": {
+          "title": "Please Confirm Deletion",
+          "question1": "You are attempting to delete a custom class email template. This action will remove it from all classes it has been assigned to. Are you sure you want to delete email template '{{ name }}'?",
+          "question2": "You are attempting to delete a default email template. This action will may affect the function of the Oregon Care Partners' site. Are you sure you want to delete email template '{{ name }}'?"
+        }
+      },
+      "error": {}
+    },
+    "emailType": {
+      "DEFAULT": "Default",
+      "OTHER": "Custom"
+    },
+    "emailTemplateEvent": {
+      "ADMIN_INVITE_INTERVIEW": "Admin Send Interview",
+      "ADMIN_INTERVIEW_PASSED": "Admin Send Interview passed",
+      "ADMIN_INTERVIEW_FAILED": "Admin Send Interview failed",
+      "USER_REGISTER": "User Register",
+      "ADMIN_CREATE_AN_USER": "Admin create an User",
+      "ADMIN_CREATE_A_CANDIDATE_ACCOUNT": "Admin create a candidate account",
+      "ADMIN_CREATE_ANOTHER_ADMIN_ACCOUNT": "Admin create another admin account",
+      "ADMIN_UPDATE_EMAIL_IN_EDIT_USER_MODAL": "Admin Update Email In Edit User Modal",
+      "CHANGES_EMAIL_ADDRESS_IN_PROFILE_EDITOR": "Change email address in profile",
+      "FORGOT_PASSWORD": "Forgot password",
+      "CANDIDATE_FINISH_TEST": "Candidate finish test",
+      "CONFIRM_CANDIDATE_FINISH_TEST": "Confirm candidate finish test",
+      "ASSIGN_TO_REVIEW": "Assign to review"
+    },
+    "recipientType": {
+      "HR": "HR",
+      "CANDIDATE": "Candidate",
+      "ADMIN": "Admin",
+      "OTHER": "Other"
+    },
+    "filter": {
+      "classType": "All Class Types",
+      "Class": {
+        "all-class": "All Template Types",
+        "DEFAULT": "Default",
+        "CUSTOMIZE": "Custom"
+      }
+    }
+  }
+}

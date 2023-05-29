@@ -1,0 +1,220 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save(emailTemplate)" #editForm="ngForm">
+  <div class="modal-header" #topElement tabindex="-1">
+    <h4 class="modal-title" *ngIf="!emailTemplate.id" jhiTranslate="emailTemplate.title.create">Create Email Template</h4>
+    <h4 class="modal-title" *ngIf="emailTemplate.id" jhiTranslate="emailTemplate.title.edit">Edit Email Template</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+      <div class="col-12 mb-3">
+        <div class="form-group">
+          <label jhiTranslate="emailTemplate.label.update.templateName"
+            >Template Name <span title="required" class="text-danger">*</span></label
+          >
+          <input
+            jhiTrimText
+            type="text"
+            class="form-control"
+            name="templateName"
+            #templateName="ngModel"
+            [(ngModel)]="emailTemplate.templateName"
+            required
+            maxlength="255"
+          />
+          <div *ngIf="templateName.invalid">
+            <small class="form-text text-danger" *ngIf="templateName.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="templateName.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 255 }"
+            >
+              This field cannot be longer than 255 characters.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="form-group">
+          <label jhiTranslate="emailTemplate.label.update.event">Event <span title="required" class="text-danger">*</span></label>
+          <select
+            class="form-control custom-select"
+            name="emailTemplateType"
+            [(ngModel)]="emailTemplate.emailTemplateEvent"
+            #emailTemplateType="ngModel"
+            id="emailTemplateType"
+            required
+          >
+            <option [ngValue]="''">{{ 'emailTemplate.label.selectOne' | translate }}</option>
+            <option *ngFor="let item of emailTemplateEvents" [value]="item">
+              {{ 'emailTemplate.emailTemplateEvent.' + item | translate }}
+            </option>
+          </select>
+          <div *ngIf="emailTemplateType.invalid">
+            <small class="form-text text-danger" *ngIf="emailTemplateType.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 mb-3">
+        <div class="form-group">
+          <label jhiTranslate="emailTemplate.label.recipient">Recipient</label>
+          <select
+            class="form-control custom-select"
+            name="recipientType"
+            [(ngModel)]="emailTemplate.recipientType"
+            #recipientType="ngModel"
+            id="recipientType"
+            required
+          >
+            <option *ngFor="let item of recipientTypes" [value]="item">{{ 'emailTemplate.recipientType.' + item | translate }}</option>
+          </select>
+
+          <div *ngIf="recipientType.invalid">
+            <small class="form-text text-danger" *ngIf="recipientType.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 mb-3">
+        <div class="form-group">
+          <label jhiTranslate="emailTemplate.label.default">Default</label>
+          <select
+            class="form-control custom-select"
+            name="isDefault"
+            [(ngModel)]="emailTemplate.isDefault"
+            #isDefault="ngModel"
+            id="isDefault"
+            required
+          >
+            <option [ngValue]="true">{{ 'emailTemplate.label.yes' | translate }}</option>
+            <option [ngValue]="false">{{ 'emailTemplate.label.no' | translate }}</option>
+          </select>
+
+          <div *ngIf="isDefault.invalid">
+            <small class="form-text text-danger" *ngIf="isDefault.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <div class="form-group">
+          <div class="card mb-3">
+            <div class="card-header">
+              <small class="form-text" jhiTranslate="emailTemplate.label.dynamicLinkTitle">Available Dynamic text links</small>
+            </div>
+            <div class="card-body">
+              <label>{{ dynamicTextReplace?.dynamicLink?.join(' ') }}</label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <small class="form-text" jhiTranslate="emailTemplate.label.dynamicTextTitle">Dynamic Text replacement supported</small>
+            </div>
+            <div class="card-body">
+              <label>{{ dynamicTextReplace?.dynamicText?.join(' ') }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label jhiTranslate="emailTemplate.label.update.subject">Subject <span title="required" class="text-danger">*</span></label>
+      <input
+        jhiTrimText
+        type="text"
+        class="form-control"
+        name="subject"
+        #subject="ngModel"
+        [(ngModel)]="emailTemplate.subject"
+        required
+        maxlength="255"
+      />
+
+      <div *ngIf="subject.invalid">
+        <small class="form-text text-danger" *ngIf="subject.errors?.required" jhiTranslate="entity.validation.required">
+          This field is required.
+        </small>
+
+        <small
+          class="form-text text-danger"
+          *ngIf="subject.errors?.maxlength"
+          jhiTranslate="entity.validation.maxlength"
+          [translateValues]="{ max: 255 }"
+        >
+          This field cannot be longer than 255 characters.
+        </small>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label jhiTranslate="emailTemplate.label.update.body">Body <span title="required" class="text-danger">*</span></label>
+      <ck-editor
+        name="body"
+        required
+        maxlength="50000"
+        class="ckEditorBody"
+        [config]="editorConfig"
+        ngDefaultControl
+        #body="ngModel"
+        [(ngModel)]="emailTemplate.body"
+        skin="moono-lisa"
+        language="en"
+        [fullPage]="false"
+      ></ck-editor>
+
+      <div *ngIf="body.invalid">
+        <small class="form-text text-danger" *ngIf="body.errors?.required" jhiTranslate="entity.validation.required">
+          This field is required.
+        </small>
+
+        <small
+          class="form-text text-danger"
+          *ngIf="body.errors?.maxlength"
+          jhiTranslate="entity.validation.maxlength"
+          [translateValues]="{ max: 50000 }"
+        >
+          This field cannot be longer than 50000 characters.
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="col-12 row">
+      <div class="col-md-4 padding-left-10">
+        <button
+          type="button"
+          id="save-entity"
+          (click)="openSendTestEmailModal()"
+          [disabled]="editForm.form.invalid"
+          class="btn btn-success"
+        >
+          <span jhiTranslate="emailTemplate.label.sendTestEmail">Send Test Email</span>
+        </button>
+      </div>
+      <div class="col-md-8 text-right padding-right-0">
+        <button
+          type="button"
+          id="save-entity"
+          (click)="save(emailTemplate)"
+          [disabled]="editForm.form.invalid"
+          class="btn btn-primary sameWidth"
+        >
+          <span jhiTranslate="entity.action.save">Save</span>
+        </button>
+        <button type="button" id="cancel-save" class="btn btn-dark sameWidth" (click)="close()">
+          <span jhiTranslate="entity.action.close">Close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
