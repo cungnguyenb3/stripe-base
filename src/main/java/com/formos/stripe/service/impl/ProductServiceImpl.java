@@ -5,23 +5,24 @@ import com.formos.stripe.service.ProductService;
 import com.formos.stripe.service.dto.product.AdminProductRequest;
 import com.stripe.Stripe;
 import com.stripe.model.Product;
-import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final String STRIPE_DOMAIN = "https://api.stripe.com/v1/products";
-    private final String SECRET_KEY = "sk_test_51LNDJNBBOGnAYk5tqzvjlqWk64NjehIIUKUCoWCJrrY5wk10wa3ovvDHS29J89DnlnbrWJFGYXuzVvMTa4WlCBcr00XyKnr5BM";
+
+    private final String SECRET_KEY =
+        "sk_test_51LNDJNBBOGnAYk5tqzvjlqWk64NjehIIUKUCoWCJrrY5wk10wa3ovvDHS29J89DnlnbrWJFGYXuzVvMTa4WlCBcr00XyKnr5BM";
 
     private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-    com.stripe.model.Product stripeProduct = null;
+
     public String createProduct(AdminProductRequest request) {
+        com.stripe.model.Product stripeProduct = null;
         try {
             Stripe.apiKey = SECRET_KEY;
 
@@ -29,10 +30,7 @@ public class ProductServiceImpl implements ProductService {
             params.put("name", request.getName());
             params.put("description", request.getDescription());
 
-           stripeProduct = Product.create(params);
-
-
-
+            stripeProduct = Product.create(params);
         } catch (Exception exception) {
             System.err.println(exception.getMessage());
         }

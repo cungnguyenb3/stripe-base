@@ -175,6 +175,33 @@ CREATE TABLE `product` (
                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `price` (
+                         `id` varchar(255),
+                         `unit_amount` bigint(22) DEFAULT NULL,
+                         `currency` varchar(25) DEFAULT NULL	,
+                         `product_id` varchar(255) NOT NULL,
+                         PRIMARY KEY (`id`),
+                         CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `payment_method` (
+                                  `id` varchar(255),
+                                  `type` varchar(255) DEFAULT NULL,
+                                  `card` varchar(255) DEFAULT NULL,
+                                  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `customer` (
+                            `id` varchar(255),
+                            `name` varchar(255) DEFAULT NULL,
+                            `description` varchar(255) DEFAULT NULL,
+                            `phone` varchar(255) NOT NULL,
+                            `email` varchar(255) NOT NULL,
+                            `payment_method_id` varchar(255) NOT NULL,
+                            CONSTRAINT `fk_payment_method_id` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`),
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

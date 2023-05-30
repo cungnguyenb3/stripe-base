@@ -1,11 +1,8 @@
 package com.formos.stripe.domain;
 
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 /**
  * A product.
@@ -14,11 +11,11 @@ import java.time.LocalDateTime;
 @Table(name = "product")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Product {
+
     private static final long serialVersionUID = 1L;
 
     @Id
     private String id;
-
 
     @Column(name = "description", columnDefinition = "TEXT", nullable = true)
     private String description;
