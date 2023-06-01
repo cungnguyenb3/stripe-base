@@ -188,6 +188,8 @@ CREATE TABLE `payment_method` (
                                   `id` varchar(255),
                                   `type` varchar(255) DEFAULT NULL,
                                   `card` varchar(255) DEFAULT NULL,
+                                  `customer_id` varchar(255) NOT NULL,
+                                  CONSTRAINT `fk_payment_method_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
                                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -197,8 +199,6 @@ CREATE TABLE `customer` (
                             `description` varchar(255) DEFAULT NULL,
                             `phone` varchar(255) NOT NULL,
                             `email` varchar(255) NOT NULL,
-                            `payment_method_id` varchar(255) NOT NULL,
-                            CONSTRAINT `fk_payment_method_id` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`),
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
