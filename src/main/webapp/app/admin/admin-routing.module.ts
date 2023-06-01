@@ -1,3 +1,5 @@
+import { CustomerUpdateModule } from './user-management/update/customer-update.module';
+import { SubscriptionManagementModule } from './subscription-management/subscription-management.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Authority } from '../config/authority.constants';
@@ -17,6 +19,24 @@ import { UserRouteAccessService } from '../core/auth/user-route-access.service';
           authorities: [Authority.ADMIN, Authority.HR],
         },
         loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule),
+      },
+      {
+        path: 'subscription-management',
+        canActivate: [UserRouteAccessService],
+        data: {
+          pageTitle: 'userManagement.home.title',
+          authorities: [Authority.ADMIN, Authority.HR],
+        },
+        loadChildren: () => import('./subscription-management/subscription-management.module').then(m => m.SubscriptionManagementModule),
+      },
+      {
+        path: 'customer-update',
+        canActivate: [UserRouteAccessService],
+        data: {
+          pageTitle: 'userManagement.home.title',
+          authorities: [Authority.ADMIN, Authority.HR],
+        },
+        loadChildren: () => import('./user-management/update/customer-update.module').then(m => m.CustomerUpdateModule),
       },
       {
         path: 'docs',

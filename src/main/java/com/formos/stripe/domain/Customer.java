@@ -29,11 +29,6 @@ public class Customer {
     @Column(name = "phone", length = 255, nullable = true)
     private String phone;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "payment_method_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private PaymentMethod paymentMethod;
-
     public String getId() {
         return id;
     }
@@ -72,14 +67,6 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
     }
 
     @Override

@@ -202,6 +202,17 @@ CREATE TABLE `customer` (
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `subscription` (
+                                `id` varchar(255),
+                                `description` varchar(255) DEFAULT NULL,
+                                `default_payment_method` varchar(255) NOT NULL,
+                                `status` varchar(255) NOT NULL,
+                                `customer_id` varchar(255) NOT NULL,
+                                `product_id` varchar(255) NOT NULL,
+                                CONSTRAINT `fk_subscription_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+                                CONSTRAINT `fk_subscription_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+                                PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

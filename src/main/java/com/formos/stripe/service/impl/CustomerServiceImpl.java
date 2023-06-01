@@ -9,6 +9,8 @@ import com.stripe.Stripe;
 import com.stripe.model.Customer;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +30,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String createCustomer(AdminCustomerRequest request) {
         com.stripe.model.Customer stripeCustomer = null;
-        PaymentMethod paymentMethod = paymentMethodRepository.findById(request.getPaymentMethodId()).orElse(null);
 
         try {
             Stripe.apiKey = SECRET_KEY;
@@ -38,7 +39,6 @@ public class CustomerServiceImpl implements CustomerService {
             params.put("description", request.getDescription());
             params.put("email", request.getEmail());
             params.put("phone", request.getPhone());
-            params.put("payment_method", paymentMethod.getId());
 
             stripeCustomer = Customer.create(params);
         } catch (Exception exception) {
@@ -51,9 +51,14 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setDescription(stripeCustomer.getDescription());
         customer.setEmail(stripeCustomer.getEmail());
         customer.setPhone(stripeCustomer.getPhone());
-        customer.setPaymentMethod(paymentMethod);
 
         customerRepository.save(customer);
         return customer.toString();
+    }
+
+    @Override
+    public Page<com.formos.stripe.domain.Customer> findAll(Pageable pageable) {
+        Page<com.formos.stripe.domain.Customer> customerPage = customerRepository.findAll(pageable);
+        return customerPage;
     }
 }

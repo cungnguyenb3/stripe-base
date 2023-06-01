@@ -6,6 +6,7 @@ public class AdminPaymentMethodRequest {
     private int expMonth;
     private int expYear;
     private String cvc;
+    private String customerId;
 
     public String getNumber() {
         return number;
@@ -37,5 +38,13 @@ public class AdminPaymentMethodRequest {
 
     public void setCvc(String cvc) {
         this.cvc = cvc;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 }

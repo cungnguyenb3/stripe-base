@@ -14,6 +14,8 @@ import { UserManagementDeleteDialogComponent } from '../delete/user-management-d
 import { UserManagementUpdateDialogComponent } from '../update/user-management-update-dialog.component';
 import { UserManagementDetailDialogComponent } from '../detail/user-management-detail-dialog.component';
 import { Authority } from '../../../config/authority.constants';
+import { CustomerService } from 'app/entities/customer/customer.service';
+import { Customer, ICustomer } from 'app/entities/customer/customer.model';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -21,7 +23,7 @@ import { Authority } from '../../../config/authority.constants';
 })
 export class UserManagementComponent implements OnInit {
   currentAccount: Account | null = null;
-  users: User[] | null = null;
+  customers: ICustomer[] | null = null;
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -32,6 +34,7 @@ export class UserManagementComponent implements OnInit {
 
   constructor(
     private userService: UserManagementService,
+    private customerService: CustomerService,
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -51,7 +54,7 @@ export class UserManagementComponent implements OnInit {
     return item.id!;
   }
 
-  deleteUser(user: User): void {
+  deleteUser(user: ICustomer): void {
     const modalRef = this.modalService.open(UserManagementDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.user = user;
     // unsubscribe not needed because closed completes on modal close
@@ -64,14 +67,14 @@ export class UserManagementComponent implements OnInit {
 
   loadAll(): void {
     this.isLoading = true;
-    this.userService
+    this.customerService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
       .subscribe({
-        next: (res: HttpResponse<User[]>) => {
+        next: (res: HttpResponse<ICustomer[]>) => {
           this.isLoading = false;
           this.onSuccess(res.body, res.headers);
         },
@@ -89,7 +92,7 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  openUpdateModal(user: User): void {
+  openUpdateModal(user: ICustomer | null): void {
     const modal = this.modalService.open(UserManagementUpdateDialogComponent, { size: 'lg', backdrop: 'static' });
     modal.componentInstance.userInput = user;
     modal.result.then(result => {
@@ -99,19 +102,20 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  openDetailDialog(user: User): void {
+  openDetailDialog(user: ICustomer): void {
     const modal = this.modalService.open(UserManagementDetailDialogComponent, { size: 'lg', backdrop: 'static' });
     modal.componentInstance.userInput = user;
   }
 
-  isCurrentLoggedUser(user: User): boolean {
-    return !this.currentAccount || this.currentAccount.login === user.login;
+  isCurrentLoggedUser(user: ICustomer): boolean {
+    // return !this.currentAccount || this.currentAccount.login === user.login;
+    return true;
   }
 
-  isModified(user: User): boolean {
-    if (user.authorities?.includes(Authority.ADMIN) && !this.currentAccount?.authorities.includes(Authority.ADMIN)) {
-      return false;
-    }
+  isModified(user: ICustomer): boolean {
+    // if (user.authorities?.includes(Authority.ADMIN) && !this.currentAccount?.authorities.includes(Authority.ADMIN)) {
+    //   return false;
+    // }
     return true;
   }
 
@@ -134,8 +138,8 @@ export class UserManagementComponent implements OnInit {
     return result;
   }
 
-  private onSuccess(users: User[] | null, headers: HttpHeaders): void {
+  private onSuccess(users: ICustomer[] | null, headers: HttpHeaders): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
-    this.users = users;
+    this.customers = users;
   }
 }

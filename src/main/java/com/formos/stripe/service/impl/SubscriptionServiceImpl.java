@@ -1,13 +1,7 @@
 package com.formos.stripe.service.impl;
 
-import com.formos.stripe.domain.Customer;
-import com.formos.stripe.domain.Price;
-import com.formos.stripe.domain.Product;
-import com.formos.stripe.domain.Subscription;
-import com.formos.stripe.repository.CustomerRepository;
-import com.formos.stripe.repository.PriceRepository;
-import com.formos.stripe.repository.ProductRepository;
-import com.formos.stripe.repository.SubscriptionRepository;
+import com.formos.stripe.domain.*;
+import com.formos.stripe.repository.*;
 import com.formos.stripe.service.SubscriptionService;
 import com.formos.stripe.service.dto.subscription.AdminSubscriptionRequest;
 import com.stripe.Stripe;
@@ -17,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,17 +25,20 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final CustomerRepository customerRepository;
     private final PriceRepository priceRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final PaymentMethodRepository paymentMethodRepository;
 
     public SubscriptionServiceImpl(
         ProductRepository productRepository,
         CustomerRepository customerRepository,
         PriceRepository priceRepository,
-        SubscriptionRepository subscriptionRepository
+        SubscriptionRepository subscriptionRepository,
+        PaymentMethodRepository paymentMethodRepository
     ) {
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
         this.priceRepository = priceRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this.paymentMethodRepository = paymentMethodRepository;
     }
 
     @Override
@@ -48,6 +47,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Product product = productRepository.findById(request.getProductId()).orElse(null);
         Customer customer = customerRepository.findById(request.getCustomerId()).orElse(null);
         Price price = priceRepository.findFirstByProductId(product.getId()).orElse(null);
+        PaymentMethod paymentMethod = paymentMethodRepository.findById(request.getPaymentMethodId()).orElse(null);
 
         com.stripe.model.Subscription stripeSubscription = null;
         try {
@@ -59,7 +59,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             Map<String, Object> params = new HashMap<>();
             params.put("customer", customer.getId());
             params.put("items", items);
-            params.put("default_payment_method", customer.getPaymentMethod().getId());
+            params.put("default_payment_method", paymentMethod.getId());
 
             stripeSubscription = com.stripe.model.Subscription.create(params);
         } catch (Exception exception) {
@@ -69,7 +69,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription subscription = new Subscription();
         subscription.setId(stripeSubscription.getId());
         subscription.setDescription(subscription.getDescription());
-        subscription.setActive(true);
+        subscription.setDefaultPaymentMethod(paymentMethod.getId());
+        subscription.setStatus(stripeSubscription.getStatus());
         subscription.setProduct(product);
         subscription.setCustomer(customer);
         subscriptionRepository.save(subscription);
@@ -78,7 +79,33 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public String getSubscriptionInvoiceUrl(String id) {
+    public String updateSubscription(String id, AdminSubscriptionRequest request) {
+        Stripe.apiKey = SECRET_KEY;
+
+        Subscription subscription = subscriptionRepository.findById(id).orElse(null);
+        //        Product product = productRepository.findById(request.getProductId()).orElse(null);
+        //        Price price = priceRepository.findFirstByProductId(product.getId()).orElse(null);
+        PaymentMethod paymentMethod = paymentMethodRepository.findById(request.getPaymentMethodId()).orElse(null);
+        com.stripe.model.Subscription stripeSubscription = null;
+
+        try {
+            stripeSubscription = com.stripe.model.Subscription.retrieve(subscription.getId());
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("default_payment_method", paymentMethod.getId());
+
+            com.stripe.model.Subscription updatedSubscription = stripeSubscription.update(params);
+            subscription.setDefaultPaymentMethod(updatedSubscription.getDefaultPaymentMethod());
+            subscriptionRepository.save(subscription);
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+        }
+
+        return "Update subscription successfully";
+    }
+
+    @Override
+    public Map getSubscriptionInvoiceUrl(String id) {
         Stripe.apiKey = SECRET_KEY;
 
         String invoiceUrl = "";
@@ -91,7 +118,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             System.err.println(exception.getMessage());
         }
 
-        return invoiceUrl;
+        Map<String, String> res = new HashMap<>();
+        res.put("downloadUrl", invoiceUrl);
+
+        return res;
     }
 
     @Override
@@ -99,14 +129,40 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Stripe.apiKey = SECRET_KEY;
 
         try {
+            Subscription subscription = subscriptionRepository.findById(id).orElse(null);
             com.stripe.model.Subscription resource = com.stripe.model.Subscription.retrieve(id);
             SubscriptionCancelParams params = SubscriptionCancelParams.builder().build();
 
-            com.stripe.model.Subscription subscription = resource.cancel(params);
+            com.stripe.model.Subscription stripeSubscription = resource.cancel(params);
+
+            subscription.setStatus(stripeSubscription.getStatus());
+            subscriptionRepository.save(subscription);
         } catch (Exception exception) {
             System.err.println(exception.getMessage());
         }
 
         return "Cancel subscription successfully";
+    }
+
+    @Override
+    public Page<Subscription> findAll(Pageable pageable) {
+        return subscriptionRepository.findAll(pageable);
+    }
+
+    @Override
+    public Subscription getSubscriptionDetail(String id) {
+        Stripe.apiKey = SECRET_KEY;
+
+        Subscription subscription = subscriptionRepository.findById(id).orElse(null);
+        try {
+            com.stripe.model.Subscription subscriptionStripe = com.stripe.model.Subscription.retrieve(subscription.getId());
+
+            subscription.setStatus(subscriptionStripe.getStatus());
+            subscriptionRepository.save(subscription);
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
+        }
+
+        return subscription;
     }
 }

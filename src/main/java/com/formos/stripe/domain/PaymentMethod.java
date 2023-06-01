@@ -1,11 +1,10 @@
 package com.formos.stripe.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * A payment method.
@@ -23,6 +22,11 @@ public class PaymentMethod {
 
     @Column(name = "card", columnDefinition = "TEXT", nullable = true)
     private String card;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Customer customer;
 
     public String getId() {
         return id;
@@ -46,6 +50,14 @@ public class PaymentMethod {
 
     public void setCard(String card) {
         this.card = card;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override

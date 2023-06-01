@@ -23,9 +23,8 @@ public class Subscription {
     @Column(name = "default_payment_method", length = 255, nullable = true)
     private String defaultPaymentMethod;
 
-    @NotNull
-    @Column(nullable = true)
-    private boolean active;
+    @Column(name = "status", length = 255, nullable = true)
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
@@ -61,12 +60,12 @@ public class Subscription {
         this.defaultPaymentMethod = defaultPaymentMethod;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getStatus() {
+        return status;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Product getProduct() {
@@ -98,12 +97,9 @@ public class Subscription {
             ", defaultPaymentMethod='" +
             defaultPaymentMethod +
             '\'' +
-            ", active=" +
-            active +
-            ", product=" +
-            product +
-            ", customer=" +
-            customer +
+            ", status='" +
+            status +
+            '\'' +
             '}'
         );
     }

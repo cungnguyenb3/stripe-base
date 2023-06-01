@@ -6,7 +6,6 @@ public class AdminCustomerRequest {
     private String description;
     private String email;
     private String phone;
-    private String paymentMethodId;
 
     public String getName() {
         return name;
@@ -38,13 +37,5 @@ public class AdminCustomerRequest {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPaymentMethodId() {
-        return paymentMethodId;
-    }
-
-    public void setPaymentMethodId(String paymentMethodId) {
-        this.paymentMethodId = paymentMethodId;
     }
 }

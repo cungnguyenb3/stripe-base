@@ -1,10 +1,5 @@
 <nav data-cy="navbar" class="f-navbar navbar navbar-dark navbar-expand-md">
   <div class="header-max-width">
-    <a class="navbar-brand logo" aria-current="page" (click)="redirectToHomePage()">
-      <div class="brand-icon">
-        <img src="content/images/formos_logo_white.png" alt="Formos Logo" />
-      </div>
-    </a>
     <button
       type="button"
       class="navbar-toggler d-lg-none"
@@ -45,7 +40,7 @@
         >
           <a class="underline-ltr nav-link" routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
             <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
-            <span class="ms-1" jhiTranslate="global.menu.admin.userManagement">User management</span>
+            <span class="ms-1">Customer management</span>
           </a>
         </li>
         <li
@@ -54,9 +49,9 @@
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a class="underline-ltr nav-link" routerLink="/candidate-management" routerLinkActive="active" (click)="collapseNavbar()">
+          <a class="underline-ltr nav-link" routerLink="admin/subscription-management" routerLinkActive="active" (click)="collapseNavbar()">
             <fa-icon icon="id-card" [fixedWidth]="true"></fa-icon>
-            <span class="ms-1">Product management</span>
+            <span class="ms-1">Subscription management</span>
           </a>
         </li>
         <li
