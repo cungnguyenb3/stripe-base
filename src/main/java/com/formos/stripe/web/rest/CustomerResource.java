@@ -51,4 +51,10 @@ public class CustomerResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), res);
         return new ResponseEntity<>(res.getContent(), headers, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/customers/{id}")
+    public ResponseEntity<Customer> findById(@PathVariable String id) {
+        Customer res = customerService.findById(id);
+        return ResponseEntity.ok(res);
+    }
 }

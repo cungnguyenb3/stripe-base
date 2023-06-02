@@ -61,4 +61,9 @@ public class CustomerServiceImpl implements CustomerService {
         Page<com.formos.stripe.domain.Customer> customerPage = customerRepository.findAll(pageable);
         return customerPage;
     }
+
+    @Override
+    public com.formos.stripe.domain.Customer findById(String id) {
+        return customerRepository.findById(id).orElse(null);
+    }
 }

@@ -82,6 +82,10 @@ export class UserManagementComponent implements OnInit {
       });
   }
 
+  directToDetail(customer: ICustomer): void {
+    this.router.navigate(['/admin/customer-update', customer.id]);
+  }
+
   transition(): void {
     this.router.navigate(['./'], {
       relativeTo: this.activatedRoute.parent,

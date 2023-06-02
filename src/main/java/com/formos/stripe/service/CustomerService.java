@@ -8,4 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface CustomerService {
     String createCustomer(AdminCustomerRequest request);
     Page<Customer> findAll(Pageable pageable);
+    Customer findById(String id);
 }

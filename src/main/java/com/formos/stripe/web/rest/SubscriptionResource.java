@@ -42,6 +42,13 @@ public class SubscriptionResource {
         return new ResponseEntity<>(res.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/subscriptions/all")
+    public ResponseEntity<List<Subscription>> findAllWithoutPaging(Pageable pageable) {
+        Page<Subscription> res = subscriptionService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), res);
+        return new ResponseEntity<>(res.getContent(), headers, HttpStatus.OK);
+    }
+
     @PostMapping("/subscriptions")
     public ResponseEntity<String> createSubscription(@RequestBody AdminSubscriptionRequest request) throws URISyntaxException {
         log.debug("REST request to save Subscription : {}", request);

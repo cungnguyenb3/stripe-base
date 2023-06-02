@@ -3,7 +3,7 @@ import { CustomerUpdateComponent } from './customer-update.component';
 
 export const customerUpdateRoute: Routes = [
   {
-    path: '',
+    path: ':customerId',
     component: CustomerUpdateComponent,
     data: {
       defaultSort: 'id,asc',

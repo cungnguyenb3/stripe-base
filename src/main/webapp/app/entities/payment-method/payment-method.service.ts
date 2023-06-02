@@ -13,7 +13,7 @@ export class PaymentMethodService {
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  query(req?: Pagination): Observable<HttpResponse<IPaymentMethod[]>> {
+  query(req?: any): Observable<HttpResponse<IPaymentMethod[]>> {
     const options = createRequestOption(req);
     return this.http.get<IPaymentMethod[]>(this.resourceUrl, { params: options, observe: 'response' });
   }

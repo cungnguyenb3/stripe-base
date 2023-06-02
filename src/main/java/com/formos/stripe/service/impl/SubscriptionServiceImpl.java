@@ -150,6 +150,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
+    public Page<Subscription> findAlll(Pageable pageable) {
+        //        return subscriptionRepository.findAll(pageable).map();
+        return null;
+    }
+
+    @Override
     public Subscription getSubscriptionDetail(String id) {
         Stripe.apiKey = SECRET_KEY;
 

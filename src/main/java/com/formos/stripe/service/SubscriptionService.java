@@ -19,5 +19,7 @@ public interface SubscriptionService {
 
     Page<Subscription> findAll(Pageable pageable);
 
+    Page<Subscription> findAlll(Pageable pageable);
+
     Subscription getSubscriptionDetail(String id);
 }

@@ -17,4 +17,8 @@ export class CustomerService {
     const options = createRequestOption(req);
     return this.http.get<ICustomer[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
+
+  findById(id: string): Observable<HttpResponse<ICustomer>> {
+    return this.http.get<ICustomer>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 }
